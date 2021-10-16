@@ -17,7 +17,7 @@ namespace Homework2
             int x = GetNumberFromUser("Введите X: ");
             int y = GetNumberFromUser("Введите Y: ");
             Console.WriteLine("Результат второй задачи: ");
-            CheckCoordinateForQuarter(x, y);
+            CheckInWhichQuarterDotLies(x, y);
         }
 
         public void SolveTask3()
@@ -243,7 +243,7 @@ namespace Homework2
             return result;
         }
 
-        public void CheckCoordinateForQuarter(int x, int y)
+        public void CheckInWhichQuarterDotLies(int x, int y)
         {
             if (x > 0 && y > 0)
             {

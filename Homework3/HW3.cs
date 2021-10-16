@@ -9,20 +9,20 @@ namespace Homework3
             int A = GetNumberFromUser("Введите число A: ");
             int B = GetNumberFromUser("Введите число B: ");
             Console.WriteLine("Результат первой задачи: ");
-            Console.WriteLine(RaiseToPower(A, B));
+            Console.WriteLine(RaiseNumberToPower(A, B));
         }
 
         public void SolveTask2()
         {
             int num = GetNumberFromUser("Введите число: ");
             Console.WriteLine("Результат второй задачи: ");
-            PrintDivisibleNumbers(num);
+            PrintDivisibleNumbersByUserNumberInRange(num);
         }
 
         public void SolveTask3()
         {
             int a = GetNumberFromUser("Введите число A: ");
-            int count = CountSquareOfNumbers(a);
+            int count = CountSquareOfNumbersLessThanUserNumber(a);
             Console.WriteLine("Результат третьей задачи: ");
             Console.WriteLine($"Кол-во чисел, квадрат которых меньше A равно {count}");
         }
@@ -38,7 +38,7 @@ namespace Homework3
         {
             int numA = GetNumberFromUser("Введите число А: ");
             int numB = GetNumberFromUser("Введите число В: ");
-            int sum = FindSumOfNumbersDivisibleBySevenOnRange(numA, numB);
+            int sum = FindSumOfNumbersDivisibleBySevenOnUserRange(numA, numB);
             Console.WriteLine("Результат пятой задачи: ");
             Console.WriteLine($"Сумма чисел из диапазона, которые делятся без остатка на 7 равна {sum}");
         }
@@ -46,7 +46,7 @@ namespace Homework3
         public void SolveTask6()
         {
             int n = GetNumberFromUser("Введите число N: ");
-            int number = FindNumberOfFibonacсiRow(n);
+            int number = FindNumberOfNumberInFibonacсiRow(n);
             Console.WriteLine("Результат шестой задачи: ");
             Console.WriteLine($"Под номером {n} в ряду Фибоначчи стоит число {number}");
         }
@@ -63,13 +63,13 @@ namespace Homework3
         {
             int x = GetNumberFromUser("Введите целое положительное число: ");
             Console.WriteLine("Результат восьмой задачи: ");
-            Console.WriteLine($"{FindNByBinarySearch(x)}");   
+            Console.WriteLine($"{FindNUsingBinarySearch(x)}");   
         }
 
         public void SolveTask9()
         {
             int numberA = GetNumberFromUser("Введите целое положительное число: ");
-            int counter = CountOddNumbersInNumber(numberA);
+            int counter = CountOddFiguresInNumber(numberA);
             Console.WriteLine("Результат девятой задачи: ");
             Console.WriteLine($"Кол-во нечетных цифр равно {counter}");
         }
@@ -78,14 +78,14 @@ namespace Homework3
         {
             int y = GetNumberFromUser("Введите целое положительное число: ");
             Console.WriteLine("Результат десятой задачи: ");
-            MirrorNumbersInNumber(y);
+            MirrorFiguresInNumber(y);
         }
 
         public void SolveTask11()
         {
             int N = GetNumberFromUser("Введите число N: ");
             Console.WriteLine("Результат одиннадцатой задачи: ");
-            CountSumOfEvenNumbersInNumber(N);
+            CountSumOfEvenFiguresInNumber(N);
         }
 
         public void SolveTask12()
@@ -126,7 +126,7 @@ namespace Homework3
             Console.WriteLine("НЕТ");
         }
 
-        public void CountSumOfEvenNumbersInNumber(int N)
+        public void CountSumOfEvenFiguresInNumber(int N)
         {
             for (int i = 1; i <= N; i++)
             {
@@ -157,7 +157,7 @@ namespace Homework3
             Console.WriteLine();
         }
 
-        public void MirrorNumbersInNumber(int y)
+        public void MirrorFiguresInNumber(int y)
         {
             while (y != 0)
             {
@@ -166,7 +166,7 @@ namespace Homework3
             }
         }
 
-        public int CountOddNumbersInNumber(int numberA)
+        public int CountOddFiguresInNumber(int numberA)
         {
             int numCheck;
             int counter = 0;
@@ -186,7 +186,7 @@ namespace Homework3
             return counter;
         }
 
-        public double FindNByBinarySearch(int x)
+        public double FindNUsingBinarySearch(int x)
         {
             double right = x;
             double left = 0;
@@ -229,7 +229,7 @@ namespace Homework3
         }
 
 
-        public int FindNumberOfFibonacсiRow(int n)
+        public int FindNumberOfNumberInFibonacсiRow(int n)
         {
             int first = 1;
             int second = 1;
@@ -246,7 +246,7 @@ namespace Homework3
             return first;
         }
 
-        public int FindSumOfNumbersDivisibleBySevenOnRange(int numA, int numB) // сорян за длиное название
+        public int FindSumOfNumbersDivisibleBySevenOnUserRange(int numA, int numB)
         {
             int sum = 0;
 
@@ -291,7 +291,7 @@ namespace Homework3
             return maxDividor;
         }
 
-        public int CountSquareOfNumbers(int a)
+        public int CountSquareOfNumbersLessThanUserNumber(int a)
         {
             int count = 0;
 
@@ -305,7 +305,7 @@ namespace Homework3
             return count;
         }
 
-        public void PrintDivisibleNumbers(int num)
+        public void PrintDivisibleNumbersByUserNumberInRange(int num)
         {
             int range = 1000;
             Console.WriteLine($"Числа от 1 до 1000, которые делятся на {num}:");
@@ -320,7 +320,7 @@ namespace Homework3
         }
 
 
-        public double RaiseToPower(int A, int B)
+        public double RaiseNumberToPower(int A, int B)
         {
             double res = 1;
 

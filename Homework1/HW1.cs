@@ -24,8 +24,8 @@ namespace Homework1
         {
             int a = GetNumberFromUser("Введите число A: ");
             int b = GetNumberFromUser("Введите число B: ");
-            double result = Divide(a, b);
-            int remainderOfDivision = ReturnRemainderOfDivision(a, b);
+            double result = DivideFirstOperandBySecond(a, b);
+            int remainderOfDivision = CalcRemainderOfDivision(a, b);
             Console.WriteLine($"Результат третьего задания: {a} / {b} = {result}");
             Console.WriteLine($"Остаток деления: {remainderOfDivision}");
         }
@@ -54,6 +54,10 @@ namespace Homework1
         public double CalcCoefK(int x1, int y1, int x2, int y2)
         {
             double coefK = (y1 - y2) * 1.0 / (x1 - x2);
+            if (double.IsInfinity(coefK) || double.IsNaN(coefK))
+            {
+                throw new DivideByZeroException("Тобi жопа");
+            }
             return coefK;
         }
 
@@ -67,19 +71,19 @@ namespace Homework1
         {
             if (a == 0)
             {
-                throw new Exception("Произошло деление на ноль");
+                throw new DivideByZeroException("Произошло деление на ноль");
             }
             double result = (c - b) * 1.0 / a;
             return result;
         }
 
-        public int ReturnRemainderOfDivision(int a, int b)
+        public int CalcRemainderOfDivision(int a, int b)
         {
             int remainderOfDivision = a % b;
             return remainderOfDivision;
         }
 
-        public double Divide(int a, int b)
+        public double DivideFirstOperandBySecond(int a, int b)
         {
             if (b == 0)
             {
@@ -116,7 +120,7 @@ namespace Homework1
         {
             if (a == b)
             {
-                throw new Exception("Числа должны быть разными!");
+                throw new ArgumentException("Значения a и b должны быть разными!");
             }
             double result = (5 * a + b * b) * 1.0 / (b - a);
             return result;
