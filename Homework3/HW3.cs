@@ -15,8 +15,9 @@ namespace Homework3
         public void SolveTask2()
         {
             int num = GetNumberFromUser("Введите число: ");
-            Console.WriteLine("Результат второй задачи: ");
-            PrintDivisibleNumbersByUserNumberInRange(num);
+            string result = FindNumbersDivisibleByUserNumberInRange(num);
+            Console.WriteLine($"Результат второй задачи: {result}");
+
         }
 
         public void SolveTask3()
@@ -38,7 +39,7 @@ namespace Homework3
         {
             int numA = GetNumberFromUser("Введите число А: ");
             int numB = GetNumberFromUser("Введите число В: ");
-            int sum = FindSumOfNumbersDivisibleBySevenOnUserRange(numA, numB);
+            int sum = CountSumOfNumbersDivisibleBySevenOnUserRange(numA, numB);
             Console.WriteLine("Результат пятой задачи: ");
             Console.WriteLine($"Сумма чисел из диапазона, которые делятся без остатка на 7 равна {sum}");
         }
@@ -77,26 +78,26 @@ namespace Homework3
         public void SolveTask10()
         {
             int y = GetNumberFromUser("Введите целое положительное число: ");
-            Console.WriteLine("Результат десятой задачи: ");
-            MirrorFiguresInNumber(y);
+            string result = MirrorFiguresInNumber(y);
+            Console.WriteLine($"Результат десятой задачи: {result}");
         }
 
         public void SolveTask11()
         {
             int N = GetNumberFromUser("Введите число N: ");
-            Console.WriteLine("Результат одиннадцатой задачи: ");
-            CountSumOfEvenFiguresInNumber(N);
+            string result = FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumber(N);
+            Console.WriteLine($"Результат одиннадцатой задачи: {result}");
         }
 
         public void SolveTask12()
         {
-            int numN1= GetNumberFromUser("Введите первое число: ");
-            int numN2= GetNumberFromUser("Введите второе число: ");
-            Console.WriteLine("Результат двенадцатой задачи: ");
-            CheckForSameNumbers(numN1, numN2);
+            int numN1 = GetNumberFromUser("Введите первое число: ");
+            int numN2 = GetNumberFromUser("Введите второе число: ");
+            string res = CheckNumbersForSameFigures(numN1, numN2);
+            Console.WriteLine($"Результат двенадцатой задачи: {res}");
         }
 
-        public void CheckForSameNumbers(int numN1, int numN2)
+        public string CheckNumbersForSameFigures(int numN1, int numN2)
         {
             int tmp1;
             int tmp2;
@@ -115,24 +116,30 @@ namespace Homework3
 
                     if (check1 == check2)
                     {
-                        Console.WriteLine("ДА");
-                        return;
+                        return "ДА";
                     }
                     numN2 /= 10;
                 }
 
                 numN1 /= 10;
             }
-            Console.WriteLine("НЕТ");
+            return "НЕТ";
         }
 
-        public void CountSumOfEvenFiguresInNumber(int N)
+        public string FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumber(int N)
         {
+            if (N < 0)
+            {
+                throw new ArgumentException("Введите положительное число!");
+            }
+
+            string result = "";
+            
             for (int i = 1; i <= N; i++)
             {
                 int sumOfEven = 0;
                 int sumOfOdd = 0;
-                int check = 0;
+                int check;
                 int numb = i;
 
                 while (numb != 0)
@@ -151,23 +158,30 @@ namespace Homework3
                 }
                 if (sumOfEven > sumOfOdd)
                 {
-                    Console.Write($" {i}");
+                    result += $"{i} ";
                 }
             }
-            Console.WriteLine();
+            return result;
         }
 
-        public void MirrorFiguresInNumber(int y)
+        public string MirrorFiguresInNumber(int y)
         {
+            if (y == 0)
+            {
+                throw new ArgumentException("Не умею работать с нулем!");
+            }
+            string result = "";
             while (y != 0)
             {
-                Console.Write($"{y % 10}");
+                result += $"{y % 10}";
                 y /= 10;
             }
+            return result;
         }
 
         public int CountOddFiguresInNumber(int numberA)
         {
+
             int numCheck;
             int counter = 0;
 
@@ -188,6 +202,11 @@ namespace Homework3
 
         public double FindNUsingBinarySearch(int x)
         {
+            if (x < 0 || x == 0)
+            {
+                throw new ArgumentException("Введите число больше нуля!");
+            }
+
             double right = x;
             double left = 0;
             double center = x / 2;
@@ -211,6 +230,10 @@ namespace Homework3
 
         public int FindGreatestCommonDividor(int num1, int num2)
         {
+            if (num1 < 0 && num2 < 0)
+            {
+                throw new ArgumentException("Введите положительные числа!");
+            }
             int dividor = 0;
 
             while (num1 != 0 && num2 != 0)
@@ -231,6 +254,15 @@ namespace Homework3
 
         public int FindNumberOfNumberInFibonacсiRow(int n)
         {
+            if (n > 48)
+            {
+                throw new ArgumentOutOfRangeException("Сорян, мы тут умеем считать только до 48 члена ряда Фибоначчи =(");
+            }
+            else if (n < 0 || n == 0)
+            {
+                throw new ArgumentException("Введите число больше нуля!");
+            }
+
             int first = 1;
             int second = 1;
             int j = 2;
@@ -246,8 +278,17 @@ namespace Homework3
             return first;
         }
 
-        public int FindSumOfNumbersDivisibleBySevenOnUserRange(int numA, int numB)
+        public int CountSumOfNumbersDivisibleBySevenOnUserRange(int numA, int numB)
         {
+            if (numA == numB)
+            {
+                throw new ArgumentException("Введите разные числа!");
+            }
+            else if (numA < 0 || numB < 0)
+            {
+                throw new ArgumentException("Числа должны быть положительными!");
+            }
+
             int sum = 0;
 
             if (numA > numB)
@@ -278,6 +319,10 @@ namespace Homework3
 
         public int FindMaxDividor(int number)
         {
+            if (number < 0 || number == 0)
+            {
+                throw new ArgumentException("Введите значение больше нуля!");
+            }
             int maxDividor = 0;
 
             for (int i = number - 1; i > 0; i--)
@@ -293,6 +338,11 @@ namespace Homework3
 
         public int CountSquareOfNumbersLessThanUserNumber(int a)
         {
+            if (a < 0 || a == 0)
+            {
+                throw new ArgumentException("Введите положительное число больше нуля!");
+            }
+
             int count = 0;
 
             for (int i = 1; i < a; i++)
@@ -305,23 +355,34 @@ namespace Homework3
             return count;
         }
 
-        public void PrintDivisibleNumbersByUserNumberInRange(int num)
+        public string FindNumbersDivisibleByUserNumberInRange(int num)
         {
+            if (num == 0)
+            {
+                throw new DivideByZeroException("Нельзя делить на ноль!");
+            }
+
             int range = 1000;
-            Console.WriteLine($"Числа от 1 до 1000, которые делятся на {num}:");
+            string result ="";
 
             for (int i = 1; i <= range; i++)
             {
                 if (i % num == 0)
                 {
-                    Console.Write($"{i} ");
+                    result += $"{i} ";
                 }
             }
+            return result;
         }
 
 
         public double RaiseNumberToPower(int A, int B)
         {
+            if (B < 0 || B == 0)
+            {
+                throw new ArgumentException("Введите значение больше нуля!");
+            }
+
             double res = 1;
 
             for (int i = 0; i < B; i++)

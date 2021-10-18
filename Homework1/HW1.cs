@@ -6,8 +6,8 @@ namespace Homework1
     {
         public void SolveTask1()
         {
-            int a = GetNumberFromUser("Введите число A: ");
-            int b = GetNumberFromUser("Введите число B: ");
+            double a = GetNumberFromUser("Введите число A: ");
+            double b = GetNumberFromUser("Введите число B: ");
             double result = CalcFormula(a, b);
             Console.WriteLine($"Результат первого задания: {result}");
         }
@@ -16,8 +16,8 @@ namespace Homework1
         {
             string a = GetStringFromUser("Введите строку 1: ");
             string b = GetStringFromUser("Введите строку 2: ");
-            string result = SwapTwoStringVariables(a, b);
-            Console.WriteLine($"Результат второго задания: {result}");
+            SwapTwoStringVariables(ref a, ref b);
+            Console.WriteLine($"Результат второго задания: строка 1 - {a}, строка 2 - {b}");
         }
 
         public void SolveTask3()
@@ -51,9 +51,17 @@ namespace Homework1
             Console.WriteLine($"Результат пятого задания: y = {coefK}x + {coefB}");
         }
 
+        public int GetNumberFromUser(string message)
+        {
+            Console.Write(message);
+            int number = Convert.ToInt32(Console.ReadLine());
+            return number;
+        }
+
         public double CalcCoefK(int x1, int y1, int x2, int y2)
         {
             double coefK = (y1 - y2) * 1.0 / (x1 - x2);
+
             if (double.IsInfinity(coefK) || double.IsNaN(coefK))
             {
                 throw new DivideByZeroException("Тобi жопа");
@@ -71,7 +79,7 @@ namespace Homework1
         {
             if (a == 0)
             {
-                throw new DivideByZeroException("Произошло деление на ноль");
+                throw new DivideByZeroException("Произошло деление на ноль!");
             }
             double result = (c - b) * 1.0 / a;
             return result;
@@ -87,19 +95,17 @@ namespace Homework1
         {
             if (b == 0)
             {
-                throw new Exception("Нельзя делить на ноль!");
+                throw new DivideByZeroException("Нельзя делить на ноль!");
             }
             double result = a * 1.0 / b;
             return result;
         }
 
-        public string SwapTwoStringVariables(string a, string b)
+        public void SwapTwoStringVariables( ref string a, ref string b)
         {
             string tmp = a;
             a = b;
             b = tmp;
-            string result = $"Строка 1 - {a}. Строка 2 - {b}";
-            return result;
         }
 
         public string GetStringFromUser(string message)
@@ -109,20 +115,14 @@ namespace Homework1
             return str;
         }
 
-        public int GetNumberFromUser(string message)
-        {
-            Console.Write(message);
-            int number = Convert.ToInt32(Console.ReadLine());
-            return number;
-        }
 
-        public double CalcFormula(int a, int b)
+        public double CalcFormula(double a, double b)
         {
             if (a == b)
             {
                 throw new ArgumentException("Значения a и b должны быть разными!");
             }
-            double result = (5 * a + b * b) * 1.0 / (b - a);
+            double result = (5 * a + b * b)* 1.0 / (b - a);
             return result;
         }
 

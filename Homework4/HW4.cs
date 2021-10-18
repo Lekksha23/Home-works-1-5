@@ -69,7 +69,7 @@ namespace Homework4
             int length = GetLengthFromUser("Введите размер массива: ");
             int[] array = FillAnArray(length);
             PrintAnArrayToConsole(array);
-            array = ReverseOfArray(array);
+            array = ReverseAnArray(array);
 
             Console.WriteLine();
             Console.WriteLine("Результат шестой задачи: ");
@@ -200,7 +200,7 @@ namespace Homework4
             }
         }
 
-        public int[] ReverseOfArray(int[] array)
+        public int[] ReverseAnArray(int[] array)
         {
             for (int i = 0; i < array.Length / 2; i++)
             {

@@ -8,16 +8,17 @@ namespace Homework2
         {
             int a = GetNumberFromUser("Введите число A: ");
             int b = GetNumberFromUser("Введите число B: ");
-            Console.WriteLine("Результат первой задачи: " );
-            CompareAndCalc(a, b);
+            int result = CompareTwoOperands(a, b);
+            Console.WriteLine($"Результат первой задачи: {result}" );
         }
 
         public void SolveTask2()
         {
             int x = GetNumberFromUser("Введите X: ");
             int y = GetNumberFromUser("Введите Y: ");
-            Console.WriteLine("Результат второй задачи: ");
-            CheckInWhichQuarterDotLies(x, y);
+            int res = CheckInWhichQuarterDotLies(x, y);
+            Console.WriteLine($"Результат второй задачи: ");
+            CheckAnswer(res);
         }
 
         public void SolveTask3()
@@ -34,20 +35,82 @@ namespace Homework2
             int coefA = GetNumberFromUser("Введите число A: ");
             int coefB = GetNumberFromUser("Введите число B: ");
             int coefC = GetNumberFromUser("Введите число C: ");
+            double discr = CalcDiscr(coefA, coefB, coefC);
+            double[] roots = SolveQuadraticEquation(coefA, coefB, coefC, discr);
             Console.WriteLine("Результат четвертой задачи: ");
-            string result = SolveQuadraticEquation(coefA, coefB, coefC);
-            Console.WriteLine(result);
+            AnalizeAnswer(roots, discr);
         }
 
         public void SolveTask5()
         {
             int number = GetNumberFromUser("Введите двузначное число: ");
             Console.WriteLine("Результат пятой задачи: ");
-            Console.WriteLine(ConvertInWords(number));
+            Console.WriteLine(ConvertIntoWords(number));
         }
 
-        public string ConvertInWords(int number)
+        public void CheckAnswer(int res)
         {
+            if (res == 1)
+            {
+                Console.WriteLine("Точка лежит в 1-ой четверти =)");
+            }
+            else if (res == 2)
+            {
+                Console.WriteLine("Точка лежит во 2-ой четверти =)");
+            }
+            else if (res == 3)
+            {
+                Console.WriteLine("Точка лежит в 3-ей четверти =)");
+            }
+            else if (res == 4)
+            {
+                Console.WriteLine("Точка лежит в 4-ой четверти =)");
+            }
+            else if (res == -666)
+            {
+                Console.WriteLine("Точка лежит на оси!");
+            }
+        }
+
+        public void AnalizeAnswer(double[] roots, double discr)
+        {
+            if (discr > 0)
+            {
+                Console.WriteLine($"У уравнения два корня: x1 = {roots[0]}; x2 = {roots[1]}");
+            }
+            else if (discr == 0)
+            {
+                Console.WriteLine($"У уравнения один корень: x = {roots[0]}");
+            }
+        }
+
+        public int CompareTwoOperands(int a, int b)
+        {
+            int result = 0;
+
+            if (a > b)
+            {
+                result = Sum(a, b);
+            }
+            else if (a == b)
+            {
+                result = Multiply(a, b);
+            }
+            else if (a < b)
+            {
+                result = Subtract(a, b);
+            }
+
+            return result;
+        }
+
+        public string ConvertIntoWords(int number)
+        {
+            if (number < 10 || number > 99)
+            {
+                throw new ArgumentException("Число должно быть двузначным!");
+            }
+
             int dozens = number / 10;
             int remainder = number % 10;
 
@@ -156,33 +219,66 @@ namespace Homework2
             return $"{firstStr} {secondStr}";
         }
 
-        public string SolveQuadraticEquation(int coefA, int coefB, int coefC)
+        public double CalcDiscr(int coefA, int coefB, int coefC)
         {
             double discr = Math.Pow(coefB, 2) - 4 * coefA * coefC;
-            Console.WriteLine($"Дискриминант равен {discr}");
+            return discr;
+        }
 
-            string result ="";
+        public double CalcX1(double discr, int coefA, int coefB)
+        {
+            double x1 = (coefB * (-1) + Math.Sqrt(discr)) / (2 * coefA);
+
+            if (double.IsInfinity(x1) || double.IsNaN(x1))
+            {
+                throw new DivideByZeroException("Тобi жопа");
+            }
+            return x1;
+        }
+
+        public double CalcX2(double discr, int coefA, int coefB)
+        {
+            double x2 = (coefB * (-1) - Math.Sqrt(discr)) / (2 * coefA);
+
+            if (double.IsInfinity(x2) || double.IsNaN(x2))
+            {
+                throw new DivideByZeroException("Тобi жопа");
+            }
+            return x2;
+        }
+
+        public double CalcX(int coefA, int coefB)
+        {
+            if (coefA == 0)
+            {
+                throw new DivideByZeroException("Произошло деление на ноль!");
+            }
+            double x = coefB * (-1.0) / (2 * coefA);
+            return x;
+        }
+
+        public double[] SolveQuadraticEquation(int coefA, int coefB, int coefC, double discr)
+        {
+            double[] roots = new double[2];
 
             if (discr > 0)
             {
-                Console.WriteLine("У уравнения два корня");
-                double x1 = (coefB * (-1) + Math.Sqrt(discr)) / (2 * coefA);
-                double x2 = (coefB * (-1) - Math.Sqrt(discr)) / (2 * coefA);
-                result = $"X1 = {x1}. X2 = {x2}";
+                double x1 = CalcX1(discr, coefA, coefB);
+                double x2 = CalcX2(discr, coefA, coefB);
+                roots[0] = x1;
+                roots[1] = x2;
             }
             else if (discr == 0)
             {
-                Console.WriteLine("У уравнения один корень");
-                double x = coefB * (-1.0) / 2 * coefA;
-                result = $"X = {x}";
-
+                double x = CalcX(coefA, coefB);
+                roots[0] = x;
             }
-            else if (discr < 0)
+            else
             {
-                Console.WriteLine("У уравнения нет корней");
+                throw new Exception("Нет корней!");
             }
 
-            return result;
+            return roots;
         }
 
         public string SortThreeNumbers(int a, int b, int c)
@@ -243,29 +339,30 @@ namespace Homework2
             return result;
         }
 
-        public void CheckInWhichQuarterDotLies(int x, int y)
+        public int CheckInWhichQuarterDotLies(int x, int y)
         {
             if (x > 0 && y > 0)
             {
-                Console.WriteLine($"Точка с координатами ({x},{y}) лежит в 1-ой четверти");
+                return 1;
             }
             else if (x < 0 && y > 0)
             {
-                Console.WriteLine($"Точка с координатами ({x},{y}) лежит во 2-ой четверти");
+                return 2;
             }
             else if (x < 0 && y < 0)
             {
-                Console.WriteLine($"Точка с координатами ({x},{y}) лежит в 3-ей четверти");
+                return 3;
             }
             else if (x > 0 && y < 0)
             {
-                Console.WriteLine($"Точка с координатами ({x},{y}) лежит в 4-ой четверти");
+                return 4;
             }
             if ((x == 0 && y >= 0) || (y == 0 && x > 0)
                 || (x == 0 && y < 0) || (y == 0 && x < 0))
             {
-                Console.WriteLine("Точка лежит на координатной оси!");
+                return -666;
             }
+            return 5;
         }
 
         public int GetNumberFromUser(string message)
@@ -275,27 +372,21 @@ namespace Homework2
             return number;
         }
 
-        public void CompareAndCalc(int a, int b)
+        public int Sum(int a , int b)
         {
-            if (a > b)
-            {
-                int sum = a + b;
-                Console.WriteLine($"A > B ... Cумма равна {sum}");
-            }
-            else if (a == b)
-            {
-                int mult = a * b;
-                Console.WriteLine($"A = B ... Произведение равно {mult}");
-            }
-            else if (a < b)
-            {
-                int subtraction = a - b;
-                Console.WriteLine($"A < B ... А - B равно {subtraction}");
-            }
+            int sum = a + b;
+            return sum;
+        }
+        public int Subtract(int a, int b)
+        {
+            int sub = a - b;
+            return sub;
         }
 
-
-
-
+        public int Multiply(int a, int b)
+        {
+            int mult = a * b;
+            return mult;
+        }
     }
 }
