@@ -67,11 +67,9 @@ namespace Homework5
             int[,] array = FillDoubleArray(n, m);
             PrintDoubleArrayToConsole(array);
             Console.WriteLine();
+            string result = CountSumOfElementsThatGreaterThanNeighbors(array);
             Console.WriteLine("Результат пятой задачи: ");
-            int counter = CountSumOfElementsThatGreaterThanNeighbors(array);
-            Console.WriteLine($"Кол-во элементов массива, которые больше " +
-                              $"всех своих соседей равно {counter}");
-            Console.WriteLine();
+            Console.WriteLine(result);
         }
 
         public void SolveTask6()
@@ -80,25 +78,29 @@ namespace Homework5
             int m = GetNumberFromUser("Введите кол-во столбцов: ");
             int[,] array = FillDoubleArray(n, m);
             PrintDoubleArrayToConsole(array);
-            array = TransposeTheMatrix(array);
+            TransposeTheMatrix(array);
 
             Console.WriteLine();
             Console.WriteLine("Результат шестой задачи: ");
             PrintDoubleArrayToConsole(array);
         }
 
-        public int[,] TransposeTheMatrix(int [,] array)
+        public void TransposeTheMatrix(int [,] array)
         {
             for (int i = 1; i < array.GetLength(0); i++)
             {
                 for (int j = 0; j < i; j++)
                 {
-                    int tmp = array[i, j];
-                    array[i, j] = array[j, i];
-                    array[j, i] = tmp;
+                    Swap(array, j, i);
                 }
             }
-            return array;
+        }
+
+        public void Swap(int[,] array, int j, int i)
+        {
+            int tmp = array[i, j];
+            array[i, j] = array[j, i];
+            array[j, i] = tmp;
         }
 
         public void PrintDoubleArrayToConsole(int[,] array)
@@ -113,9 +115,10 @@ namespace Homework5
             }
         }
 
-        public int CountSumOfElementsThatGreaterThanNeighbors(int[,] array)
+        public string CountSumOfElementsThatGreaterThanNeighbors(int[,] array)
         {
             int counter = 0;
+            string str = "";
 
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -127,13 +130,15 @@ namespace Homework5
                         && (j >= array.GetLength(1) - 1 || array[i, j] > array[i, j + 1]))
                     {
                         counter++;
-                        Console.Write($"[{i},{j}] : {array[i, j]}");
+                        str += $"[{i},{j}] : {array[i, j]}   ";
                         Console.WriteLine();
                     }
                 }
             }
-
-            return counter;
+            str += $"Кол-во элементов массива, которые больше " +
+                              $"всех своих соседей равно {counter}";
+            
+            return str;
         }
 
         public int[] FindIndexOfMaxElementInDoubleArray(int[,] array)

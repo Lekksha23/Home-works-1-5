@@ -36,9 +36,9 @@ namespace Homework2
             int coefB = GetNumberFromUser("Введите число B: ");
             int coefC = GetNumberFromUser("Введите число C: ");
             double discr = CalcDiscr(coefA, coefB, coefC);
-            double[] roots = SolveQuadraticEquation(coefA, coefB, coefC, discr);
+            double[] answer = SolveQuadraticEquation(coefA, coefB, coefC, discr);
             Console.WriteLine("Результат четвертой задачи: ");
-            AnalizeAnswer(roots, discr);
+            AnalizeAnswer(answer);
         }
 
         public void SolveTask5()
@@ -50,37 +50,45 @@ namespace Homework2
 
         public void CheckAnswer(int res)
         {
-            if (res == 1)
+            switch (res)
             {
-                Console.WriteLine("Точка лежит в 1-ой четверти =)");
+                case 1:
+                    Console.WriteLine("Точка лежит в 1-ой четверти =)");
+                    break;
+                case 2:
+                    Console.WriteLine("Точка лежит в 2-ой четверти =)");
+                    break;
+                case 3:
+                    Console.WriteLine("Точка лежит в 3-ой четверти =)");
+                    break;
+                case 4:
+                    Console.WriteLine("Точка лежит в 4-ой четверти =)");
+                    break;
+                default:
+                    Console.WriteLine("Точка лежит в 5-ой четверти =)");
+                    break;
             }
-            else if (res == 2)
-            {
-                Console.WriteLine("Точка лежит во 2-ой четверти =)");
-            }
-            else if (res == 3)
-            {
-                Console.WriteLine("Точка лежит в 3-ей четверти =)");
-            }
-            else if (res == 4)
-            {
-                Console.WriteLine("Точка лежит в 4-ой четверти =)");
-            }
-            else if (res == -666)
-            {
-                Console.WriteLine("Точка лежит на оси!");
-            }
+
+            //res switch
+            //{
+            //    1 => Console.WriteLine("Точка лежит в 1-ой четверти =)"),
+            //    2 => Console.WriteLine("Точка лежит во 2-ой четверти =)"),
+            //    3 => Console.WriteLine("Точка лежит в 3-ей четверти =)"),
+            //    4 => Console.WriteLine("Точка лежит в 4-ой четверти =)"),
+            //    -666 => Console.WriteLine("Точка лежит на оси!"),
+            //}; 
+            // не работает и я не знаю почему =(
         }
 
-        public void AnalizeAnswer(double[] roots, double discr)
+        public void AnalizeAnswer(double[] answer)
         {
-            if (discr > 0)
+            if (answer.Length == 2 )
             {
-                Console.WriteLine($"У уравнения два корня: x1 = {roots[0]}; x2 = {roots[1]}");
+                Console.WriteLine($"У уравнения два корня: x1 = {answer[0]}; x2 = {answer[1]}");
             }
-            else if (discr == 0)
+            else
             {
-                Console.WriteLine($"У уравнения один корень: x = {roots[0]}");
+                Console.WriteLine($"У уравнения один корень: x = {answer[0]}");
             }
         }
 
@@ -229,7 +237,7 @@ namespace Homework2
         {
             double x1 = (coefB * (-1) + Math.Sqrt(discr)) / (2 * coefA);
 
-            if (double.IsInfinity(x1) || double.IsNaN(x1))
+            if (coefA == 0)
             {
                 throw new DivideByZeroException("Тобi жопа");
             }
@@ -240,7 +248,7 @@ namespace Homework2
         {
             double x2 = (coefB * (-1) - Math.Sqrt(discr)) / (2 * coefA);
 
-            if (double.IsInfinity(x2) || double.IsNaN(x2))
+            if (coefA == 0)
             {
                 throw new DivideByZeroException("Тобi жопа");
             }
@@ -259,26 +267,23 @@ namespace Homework2
 
         public double[] SolveQuadraticEquation(int coefA, int coefB, int coefC, double discr)
         {
-            double[] roots = new double[2];
-
             if (discr > 0)
             {
                 double x1 = CalcX1(discr, coefA, coefB);
                 double x2 = CalcX2(discr, coefA, coefB);
-                roots[0] = x1;
-                roots[1] = x2;
+                double[] roots = new double[2] { x1, x2 };
+                return roots;
             }
             else if (discr == 0)
             {
                 double x = CalcX(coefA, coefB);
-                roots[0] = x;
+                double[] root = new double[1] { x };
+                return root;
             }
             else
             {
                 throw new Exception("Нет корней!");
             }
-
-            return roots;
         }
 
         public string SortThreeNumbers(int a, int b, int c)

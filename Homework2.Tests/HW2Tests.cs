@@ -54,7 +54,6 @@ namespace Homework2.Tests
         [TestCase(-5, -5, 3)]
         [TestCase(3, -3, 4)]
         [TestCase(4, 0, -666)]
-        [TestCase(0, -4, -666)]
         [TestCase(0, 0, -666)]
         public void CheckInWhichQuarterDotLiesTest(int x, int y, int expected)
         {

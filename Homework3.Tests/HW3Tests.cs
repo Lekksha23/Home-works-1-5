@@ -82,7 +82,20 @@ namespace Homework3.Tests
             //act, assert
             Exception ex = Assert.Throws(typeof(ArgumentException), () => _hw3.FindMaxDividor(number));
         }
- 
+
+        [TestCase( 70, 35, new int[] {70, 35 } )]
+        [TestCase( 35, 70, new int[] { 70, 35 } )]
+        public void SwapTest(int numA, int numB, int[] expected)
+        {
+            //arrange
+
+            //act
+            int[] actual = _hw3.Swap(numA, numB);
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestCase(70, 35, 315)]
         [TestCase(35, 70, 315)]
         public void CountSumOfNumbersDivisibleBySevenOnUserRangeTest(int numA, int numB, int expected)
@@ -184,15 +197,15 @@ namespace Homework3.Tests
             Exception ex = Assert.Throws(typeof(ArgumentException), () => _hw3.FindNUsingBinarySearch(x));
         }
 
-        [TestCase(123,"321")]
-        [TestCase(333, "333")]
-        [TestCase(7, "7")]
-        public void MirrorFiguresInNumberTest(int y, string expected)
+        [TestCase(123, 321)]
+        [TestCase(333, 333)]
+        [TestCase(7, 7)]
+        public void MirrorFiguresInNumberTest(int num, int expected)
         {
             //arrange
 
             //act
-            string actual = _hw3.MirrorFiguresInNumber(y);
+            int actual = _hw3.MirrorDigitsInNumber(num);
 
             //assert
             Assert.AreEqual(expected, actual);
@@ -204,17 +217,17 @@ namespace Homework3.Tests
             //arrange
 
             //act, assert
-            Exception ex = Assert.Throws(typeof(ArgumentException), () => _hw3.MirrorFiguresInNumber(x));
+            Exception ex = Assert.Throws(typeof(ArgumentException), () => _hw3.MirrorDigitsInNumber(x));
         }
 
         [TestCase(1234567, 4)]
         [TestCase(-34576, 3)]
-        public void CountOddFiguresInNumberTest(int numberA, int expected)
+        public void CountOddDigitsInNumberTest(int numberA, int expected)
         {
             //arrange
 
             //act
-            int actual = _hw3.CountOddFiguresInNumber(numberA);
+            int actual = _hw3.CountOddDigitsInNumber(numberA);
 
             //assert
             Assert.AreEqual(expected, actual);
@@ -245,36 +258,36 @@ namespace Homework3.Tests
 
         [TestCase(0, "")]
         [TestCase(77, "2 4 6 8 12 14 16 18 20 21 22 24 26 28 34 36 38 40 41 42 43 44 46 48 56 58 60 61 62 63 64 65 66 68 ")]
-        public void FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumberTest(int num, string expected)
+        public void GetNumbersWithSumOfEvenDigitsGreaterThanSumOfOddDigitsInRangeFromOneToNrTest(int num, string expected)
         {
             //arrange
 
             //act
-            string actual = _hw3.FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumber(num);
+            string actual = _hw3.GetNumbersWithSumOfEvenDigitsGreaterThanSumOfOddDigitsInRangeFromOneToN(num);
 
             //assert
             Assert.AreEqual(expected, actual);
         }
 
         [TestCase(-1)]
-        public void FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumberNegativeTest(int num)
+        public void GetNumbersWithSumOfEvenDigitsGreaterThanSumOfOddDigitsInRangeFromOneToNNegativeTest(int num)
         {
             //arrange
 
             //act, assert
             Exception ex = Assert.Throws(typeof(ArgumentException), () =>
-            _hw3.FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumber(num));
+            _hw3.GetNumbersWithSumOfEvenDigitsGreaterThanSumOfOddDigitsInRangeFromOneToN(num));
         }
 
         [TestCase(123, 345, "ÄÀ")]
         [TestCase(345, 111, "ÍÅÒ")]
         [TestCase(-3666, -345, "ÄÀ")]
-        public void CheckNumbersForSameFiguresTest(int numN1, int numN2, string expected)
+        public void CheckNumbersForSameDigitsTest(int numN1, int numN2, string expected)
         {
             //arrange
 
             //act
-            string actual = _hw3.CheckNumbersForSameFigures(numN1, numN2);
+            string actual = _hw3.CheckNumbersForSameDigits(numN1, numN2);
 
             //assert
             Assert.AreEqual(expected, actual);

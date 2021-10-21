@@ -70,22 +70,22 @@ namespace Homework3
         public void SolveTask9()
         {
             int numberA = GetNumberFromUser("Введите целое положительное число: ");
-            int counter = CountOddFiguresInNumber(numberA);
+            int counter = CountOddDigitsInNumber(numberA);
             Console.WriteLine("Результат девятой задачи: ");
             Console.WriteLine($"Кол-во нечетных цифр равно {counter}");
         }
 
         public void SolveTask10()
         {
-            int y = GetNumberFromUser("Введите целое положительное число: ");
-            string result = MirrorFiguresInNumber(y);
+            int num = GetNumberFromUser("Введите целое положительное число: ");
+            int result = MirrorDigitsInNumber(num);
             Console.WriteLine($"Результат десятой задачи: {result}");
         }
 
         public void SolveTask11()
         {
             int N = GetNumberFromUser("Введите число N: ");
-            string result = FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumber(N);
+            string result = GetNumbersWithSumOfEvenDigitsGreaterThanSumOfOddDigitsInRangeFromOneToN(N);
             Console.WriteLine($"Результат одиннадцатой задачи: {result}");
         }
 
@@ -93,11 +93,11 @@ namespace Homework3
         {
             int numN1 = GetNumberFromUser("Введите первое число: ");
             int numN2 = GetNumberFromUser("Введите второе число: ");
-            string res = CheckNumbersForSameFigures(numN1, numN2);
+            string res = CheckNumbersForSameDigits(numN1, numN2);
             Console.WriteLine($"Результат двенадцатой задачи: {res}");
         }
 
-        public string CheckNumbersForSameFigures(int numN1, int numN2)
+        public string CheckNumbersForSameDigits(int numN1, int numN2)
         {
             int tmp1;
             int tmp2;
@@ -126,16 +126,16 @@ namespace Homework3
             return "НЕТ";
         }
 
-        public string FindInWhichNumbersSumOfEvenFiguresGreaterThanSumOfOddFiguresInRangeBeforeUserNumber(int N)
+        public string GetNumbersWithSumOfEvenDigitsGreaterThanSumOfOddDigitsInRangeFromOneToN(int n)
         {
-            if (N < 0)
+            if (n < 0)
             {
                 throw new ArgumentException("Введите положительное число!");
             }
 
             string result = "";
             
-            for (int i = 1; i <= N; i++)
+            for (int i = 1; i <= n; i++)
             {
                 int sumOfEven = 0;
                 int sumOfOdd = 0;
@@ -164,22 +164,27 @@ namespace Homework3
             return result;
         }
 
-        public string MirrorFiguresInNumber(int y)
+        public int MirrorDigitsInNumber(int num)
         {
-            if (y == 0)
+            if (num == 0)
             {
                 throw new ArgumentException("Не умею работать с нулем!");
             }
-            string result = "";
-            while (y != 0)
+
+            int result = 0;
+            string stringNumber = "";
+
+            while (num != 0)
             {
-                result += $"{y % 10}";
-                y /= 10;
+                stringNumber += $"{num % 10}";
+                num /= 10;
             }
+
+            result = Convert.ToInt32(stringNumber);
             return result;
         }
 
-        public int CountOddFiguresInNumber(int numberA)
+        public int CountOddDigitsInNumber(int numberA)
         {
 
             int numCheck;
@@ -278,6 +283,22 @@ namespace Homework3
             return first;
         }
 
+        public int[] Swap(int numA, int numB)
+        {
+            int[] numbers = new int[2];
+
+            if (numB > numA)
+            {
+                int tmp = numB;
+                numB = numA;
+                numA = tmp;
+            }
+
+            numbers[0] = numA;
+            numbers[1] = numB;
+            return numbers;
+        }
+
         public int CountSumOfNumbersDivisibleBySevenOnUserRange(int numA, int numB)
         {
             if (numA == numB)
@@ -289,32 +310,18 @@ namespace Homework3
                 throw new ArgumentException("Числа должны быть положительными!");
             }
 
+            int[] numbers = Swap(numA, numB);
             int sum = 0;
 
-            if (numA > numB)
-            {
-                for (int i = numB; i <= numA; i++)
+                for (int i = numbers[1]; i <= numbers[0]; i++)
                 {
                     if (i % 7 == 0)
                     {
                         sum += i;
                     }
                 }
-                return sum;
-            }
 
-            if (numB > numA)
-            {
-                for (int i = numA; i <= numB; i++)
-                {
-                    if (i % 7 == 0)
-                    {
-                        sum += i;
-                    }
-                }
                 return sum;
-            }
-            return sum;
         }
 
         public int FindMaxDividor(int number)

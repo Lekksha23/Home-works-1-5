@@ -48,6 +48,8 @@ namespace ConsoleAppLekksha
             //hw4.SolveTask6();
             //hw4.SolveTask7();
             //hw4.SolveTask8();
+            //hw4.SolveTask9();
+            //hw4.SolveTask10();
 
             HW5 hw5 = new HW5();
             //hw5.SolveTask1();

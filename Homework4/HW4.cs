@@ -69,7 +69,7 @@ namespace Homework4
             int length = GetLengthFromUser("Введите размер массива: ");
             int[] array = FillAnArray(length);
             PrintAnArrayToConsole(array);
-            array = ReverseAnArray(array);
+            ReverseAnArray(array);
 
             Console.WriteLine();
             Console.WriteLine("Результат шестой задачи: ");
@@ -93,7 +93,7 @@ namespace Homework4
             int length = GetLengthFromUser("Введите размер массива: ");
             int[] array = FillAnArray(length);
             PrintAnArrayToConsole(array);
-            array = SwapFirstAndSecondHalfOfArray(array);
+            SwapFirstAndSecondHalfOfArray(array);
 
             Console.WriteLine();
             Console.WriteLine("Результат восьмой задачи: ");
@@ -105,7 +105,7 @@ namespace Homework4
             int length = GetLengthFromUser("Введите размер массива: ");
             int[] array = FillAnArray(length);
             PrintAnArrayToConsole(array);
-            array = SortAnArrayBySelectionSort(array);
+            SortAnArrayBySelectionSort(array);
 
             Console.WriteLine();
             Console.WriteLine("Результат девятой задачи: ");
@@ -117,14 +117,14 @@ namespace Homework4
             int length = GetLengthFromUser("Введите размер массива: ");
             int[] array = FillAnArray(length);
             PrintAnArrayToConsole(array);
-            array = SortAnArrayByInsertionSort(array);
+            SortAnArrayByInsertionSort(array);
 
             Console.WriteLine();
             Console.WriteLine("Результат десятой задачи: ");
             PrintAnArrayToConsole(array);
         }
 
-        public int[] SortAnArrayByInsertionSort(int[] array)
+        public void SortAnArrayByInsertionSort(int[] array)
         {
             for (int i = 1; i < array.Length; i++)
             {
@@ -140,11 +140,9 @@ namespace Homework4
                 }
                 array[j + 1] = tmp;
             }
-
-            return array;
         }
 
-        public int[] SortAnArrayBySelectionSort(int[] array)
+        public void SortAnArrayBySelectionSort(int[] array)
         {
             for (int i = 0; i < array.Length - 1; i++)
             {
@@ -161,22 +159,23 @@ namespace Homework4
                 array[i] = array[indexOfMin];
                 array[indexOfMin] = tmp;
             }
-
-            return array;
         }
 
-        public int[] SwapFirstAndSecondHalfOfArray(int[] array)
+        public void SwapFirstAndSecondHalfOfArray(int[] array)
         {
             int middle = array.Length / 2;
 
             for (int i = 0; i < middle; i++)
             {
-                int tmp = array[i];
-                array[i] = array[i + array.Length - middle];
-                array[i + array.Length - middle] = tmp;
+                Swap(array, middle, i);
             }
+        }
 
-            return array;
+        public void Swap(int[] array, int middle, int i)
+        {
+            int tmp = array[i];
+            array[i] = array[i + array.Length - middle];
+            array[i + array.Length - middle] = tmp;
         }
 
         public int CountOddElementsOfArray(int[] array)
@@ -200,15 +199,19 @@ namespace Homework4
             }
         }
 
-        public int[] ReverseAnArray(int[] array)
+        public void ReverseAnArray(int[] array)
         {
             for (int i = 0; i < array.Length / 2; i++)
             {
-                int tmp = array[i];
-                array[i] = array[array.Length - 1 - i];
-                array[array.Length - 1 - i] = tmp;
+                Swap(array, i);
             }
-            return array;
+        }
+
+        public void Swap(int[] array, int i)
+        {
+            int tmp = array[i];
+            array[i] = array[array.Length - 1 - i];
+            array[array.Length - 1 - i] = tmp;
         }
 
         public int CountSumOfElementsWithOddIndexes(int[] array)
