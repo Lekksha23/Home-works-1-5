@@ -167,20 +167,14 @@ namespace Homework4
 
             for (int i = 0; i < middle; i++)
             {
-                Swap(array, middle, i);
+                Swap(ref array[i], ref array[i + array.Length - middle]);
             }
-        }
-
-        public void Swap(int[] array, int middle, int i)
-        {
-            int tmp = array[i];
-            array[i] = array[i + array.Length - middle];
-            array[i + array.Length - middle] = tmp;
         }
 
         public int CountOddElementsOfArray(int[] array)
         {
             int count = 0;
+
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] % 2 != 0)
@@ -203,15 +197,15 @@ namespace Homework4
         {
             for (int i = 0; i < array.Length / 2; i++)
             {
-                Swap(array, i);
+                Swap(ref array[i], ref array[array.Length - 1 - i]);
             }
         }
 
-        public void Swap(int[] array, int i)
+        public void Swap(ref int a, ref int b)
         {
-            int tmp = array[i];
-            array[i] = array[array.Length - 1 - i];
-            array[array.Length - 1 - i] = tmp;
+            int tmp = a;
+            a = b;
+            b = tmp;
         }
 
         public int CountSumOfElementsWithOddIndexes(int[] array)

@@ -91,16 +91,16 @@ namespace Homework5
             {
                 for (int j = 0; j < i; j++)
                 {
-                    Swap(array, j, i);
+                    Swap(ref array[i, j], ref array[j, i]);
                 }
             }
         }
 
-        public void Swap(int[,] array, int j, int i)
+        public void Swap(ref int a, ref int b)
         {
-            int tmp = array[i, j];
-            array[i, j] = array[j, i];
-            array[j, i] = tmp;
+            int tmp = a;
+            a = b;
+            b = tmp;
         }
 
         public void PrintDoubleArrayToConsole(int[,] array)
@@ -130,8 +130,7 @@ namespace Homework5
                         && (j >= array.GetLength(1) - 1 || array[i, j] > array[i, j + 1]))
                     {
                         counter++;
-                        str += $"[{i},{j}] : {array[i, j]}   ";
-                        Console.WriteLine();
+                        str += $"[{i},{j}] : {array[i, j]}. ";
                     }
                 }
             }
@@ -143,9 +142,14 @@ namespace Homework5
 
         public int[] FindIndexOfMaxElementInDoubleArray(int[,] array)
         {
+            if (array.Length == 0)
+            {
+                throw new Exception("Массив не должен быть пустым!");
+            }
+
             int max = array[0, 0];
-            int tmpIMax = 0;
-            int tmpJMax = 0;
+            int iMax = 0;
+            int jMax = 0;
 
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -154,17 +158,22 @@ namespace Homework5
                     if (array[i, j] > max)
                     {
                         max = array[i, j];
-                        tmpIMax = i;
-                        tmpJMax = j;
+                        iMax = i;
+                        jMax = j;
                     }
                 }
             }
-            int[] indexOfMax = new int[2] { tmpIMax, tmpJMax };
+            int[] indexOfMax = new int[2] { iMax, jMax };
             return indexOfMax;
         }
 
         public int[] FindIndexOfMinElementInDoubleArray(int[,] array)
         {
+            if (array.Length == 0)
+            {
+                throw new Exception("Массив не должен быть пустым!");
+            }
+
             int min = array[0, 0];
             int tmpIMin = 0;
             int tmpJMin = 0;

@@ -172,15 +172,15 @@ namespace Homework3
             }
 
             int result = 0;
-            string stringNumber = "";
 
             while (num != 0)
             {
-                stringNumber += $"{num % 10}";
+                int copy = num;
+                copy %= 10;
+                result = result * 10 + copy;
                 num /= 10;
             }
 
-            result = Convert.ToInt32(stringNumber);
             return result;
         }
 
@@ -283,20 +283,11 @@ namespace Homework3
             return first;
         }
 
-        public int[] Swap(int numA, int numB)
+        public void Swap(ref int numA, ref int numB)
         {
-            int[] numbers = new int[2];
-
-            if (numB > numA)
-            {
                 int tmp = numB;
                 numB = numA;
                 numA = tmp;
-            }
-
-            numbers[0] = numA;
-            numbers[1] = numB;
-            return numbers;
         }
 
         public int CountSumOfNumbersDivisibleBySevenOnUserRange(int numA, int numB)
@@ -310,10 +301,14 @@ namespace Homework3
                 throw new ArgumentException("Числа должны быть положительными!");
             }
 
-            int[] numbers = Swap(numA, numB);
+            if (numB > numA)
+            {
+                Swap(ref numA, ref numB);
+            }
+
             int sum = 0;
 
-                for (int i = numbers[1]; i <= numbers[0]; i++)
+                for (int i = numB; i <= numA; i++)
                 {
                     if (i % 7 == 0)
                     {

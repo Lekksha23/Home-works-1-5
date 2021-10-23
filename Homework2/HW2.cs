@@ -18,7 +18,8 @@ namespace Homework2
             int y = GetNumberFromUser("Введите Y: ");
             int res = CheckInWhichQuarterDotLies(x, y);
             Console.WriteLine($"Результат второй задачи: ");
-            CheckAnswer(res);
+            string result = CheckAnswer(res);
+            Console.WriteLine(result);
         }
 
         public void SolveTask3()
@@ -48,36 +49,19 @@ namespace Homework2
             Console.WriteLine(ConvertIntoWords(number));
         }
 
-        public void CheckAnswer(int res)
+        public string CheckAnswer(int res)
         {
-            switch (res)
-            {
-                case 1:
-                    Console.WriteLine("Точка лежит в 1-ой четверти =)");
-                    break;
-                case 2:
-                    Console.WriteLine("Точка лежит в 2-ой четверти =)");
-                    break;
-                case 3:
-                    Console.WriteLine("Точка лежит в 3-ой четверти =)");
-                    break;
-                case 4:
-                    Console.WriteLine("Точка лежит в 4-ой четверти =)");
-                    break;
-                default:
-                    Console.WriteLine("Точка лежит в 5-ой четверти =)");
-                    break;
-            }
+            string str = "";
 
-            //res switch
-            //{
-            //    1 => Console.WriteLine("Точка лежит в 1-ой четверти =)"),
-            //    2 => Console.WriteLine("Точка лежит во 2-ой четверти =)"),
-            //    3 => Console.WriteLine("Точка лежит в 3-ей четверти =)"),
-            //    4 => Console.WriteLine("Точка лежит в 4-ой четверти =)"),
-            //    -666 => Console.WriteLine("Точка лежит на оси!"),
-            //}; 
-            // не работает и я не знаю почему =(
+            return str = res switch
+            {
+                1 => "Точка лежит в 1-ой четверти =)",
+                2 => "Точка лежит во 2-ой четверти =)",
+                3 => "Точка лежит в 3-ей четверти =)",
+                4 => "Точка лежит в 4-ой четверти =)",
+                -666 => "Точка лежит на оси!",
+                _ => "",
+            };
         }
 
         public void AnalizeAnswer(double[] answer)

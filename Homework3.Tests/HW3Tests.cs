@@ -83,21 +83,8 @@ namespace Homework3.Tests
             Exception ex = Assert.Throws(typeof(ArgumentException), () => _hw3.FindMaxDividor(number));
         }
 
-        [TestCase( 70, 35, new int[] {70, 35 } )]
-        [TestCase( 35, 70, new int[] { 70, 35 } )]
-        public void SwapTest(int numA, int numB, int[] expected)
-        {
-            //arrange
-
-            //act
-            int[] actual = _hw3.Swap(numA, numB);
-
-            //assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestCase(70, 35, 315)]
-        [TestCase(35, 70, 315)]
+        [TestCase(3, 21, 42)]
+        [TestCase(21, 3, 42)]
         public void CountSumOfNumbersDivisibleBySevenOnUserRangeTest(int numA, int numB, int expected)
         {
             //arrange

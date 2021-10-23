@@ -11,6 +11,22 @@ namespace ConsoleAppLekksha
     {
         static void Main(string[] args)
         {
+            int[,] array = new int[,] { { 1, 1 }, { 5, 5 } };
+            PrintDoubleArrayToConsole(array);
+
+            static void PrintDoubleArrayToConsole(int[,] array)
+            {
+                for (int i = 0; i < array.GetLength(0); i++)
+                {
+                    for (int j = 0; j < array.GetLength(1); j++)
+                    {
+                        Console.Write($"{array[i, j]}\t");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine();
+
             HW1 hw1 = new HW1();
             //hw1.SolveTask1();
             //hw1.SolveTask2();

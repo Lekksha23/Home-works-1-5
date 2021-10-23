@@ -13,6 +13,22 @@ namespace Homework2.Tests
             _hw2 = new HW2();
         }
 
+        [TestCase(1, "Точка лежит в 1-ой четверти =)")]
+        [TestCase(2, "Точка лежит во 2-ой четверти =)")]
+        [TestCase(3, "Точка лежит в 3-ей четверти =)")]
+        [TestCase(4, "Точка лежит в 4-ой четверти =)")]
+        [TestCase(-666, "Точка лежит на оси!")]
+        public void CheckAnswerTest(int res, string expected)
+        {
+            //arrange
+
+            //act
+            string actual = _hw2.CheckAnswer(res);
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestCase(5, 34, 39)]
         public void SumTest(int a, int b, int expected)
         {
