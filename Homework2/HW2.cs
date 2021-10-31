@@ -9,7 +9,7 @@ namespace Homework2
             int a = GetNumberFromUser("Введите число A: ");
             int b = GetNumberFromUser("Введите число B: ");
             int result = CompareTwoOperands(a, b);
-            Console.WriteLine($"Результат первой задачи: {result}" );
+            Console.WriteLine($"Результат первой задачи: {result}");
         }
 
         public void SolveTask2()
@@ -37,9 +37,10 @@ namespace Homework2
             int coefB = GetNumberFromUser("Введите число B: ");
             int coefC = GetNumberFromUser("Введите число C: ");
             double discr = CalcDiscr(coefA, coefB, coefC);
-            double[] answer = SolveQuadraticEquation(coefA, coefB, coefC, discr);
+            double[] answer = SolveQuadraticEquation(coefA, coefB, discr);
             Console.WriteLine("Результат четвертой задачи: ");
-            AnalizeAnswer(answer);
+            string res = AnalizeAnswer(answer);
+            Console.WriteLine(res);
         }
 
         public void SolveTask5()
@@ -53,27 +54,35 @@ namespace Homework2
         {
             string str = "";
 
+            if (res > 4 || res < -1 || res == 0)
+            {
+                throw new ArgumentException("Неверное значение");
+            }
+
             return str = res switch
             {
                 1 => "Точка лежит в 1-ой четверти =)",
                 2 => "Точка лежит во 2-ой четверти =)",
                 3 => "Точка лежит в 3-ей четверти =)",
                 4 => "Точка лежит в 4-ой четверти =)",
-                -666 => "Точка лежит на оси!",
+                -1 => "Точка лежит на оси!",
                 _ => "",
             };
         }
 
-        public void AnalizeAnswer(double[] answer)
+        public string AnalizeAnswer(double[] answer)
         {
-            if (answer.Length == 2 )
+            string res = "";
+
+            if (answer.Length == 2)
             {
-                Console.WriteLine($"У уравнения два корня: x1 = {answer[0]}; x2 = {answer[1]}");
+                res = $"У уравнения два корня: x1 = {answer[0]}; x2 = {answer[1]}";
             }
             else
             {
-                Console.WriteLine($"У уравнения один корень: x = {answer[0]}");
+                res = $"У уравнения один корень: x = {answer[0]}";
             }
+            return res;
         }
 
         public int CompareTwoOperands(int a, int b)
@@ -219,23 +228,23 @@ namespace Homework2
 
         public double CalcX1(double discr, int coefA, int coefB)
         {
-            double x1 = (coefB * (-1) + Math.Sqrt(discr)) / (2 * coefA);
-
             if (coefA == 0)
             {
                 throw new DivideByZeroException("Тобi жопа");
             }
+
+            double x1 = (coefB * (-1) + Math.Sqrt(discr)) / (2 * coefA);
             return x1;
         }
 
         public double CalcX2(double discr, int coefA, int coefB)
         {
-            double x2 = (coefB * (-1) - Math.Sqrt(discr)) / (2 * coefA);
-
             if (coefA == 0)
             {
                 throw new DivideByZeroException("Тобi жопа");
             }
+
+            double x2 = (coefB * (-1) - Math.Sqrt(discr)) / (2 * coefA);
             return x2;
         }
 
@@ -249,7 +258,7 @@ namespace Homework2
             return x;
         }
 
-        public double[] SolveQuadraticEquation(int coefA, int coefB, int coefC, double discr)
+        public double[] SolveQuadraticEquation(int coefA, int coefB, double discr)
         {
             if (discr > 0)
             {
@@ -349,7 +358,7 @@ namespace Homework2
             if ((x == 0 && y >= 0) || (y == 0 && x > 0)
                 || (x == 0 && y < 0) || (y == 0 && x < 0))
             {
-                return -666;
+                return -1;
             }
             return 5;
         }
@@ -361,7 +370,7 @@ namespace Homework2
             return number;
         }
 
-        public int Sum(int a , int b)
+        public int Sum(int a, int b)
         {
             int sum = a + b;
             return sum;

@@ -62,6 +62,8 @@ namespace Homework3.Tests
         [TestCase(1000, 500)]
         [TestCase(70, 35)]
         [TestCase(2, 1)]
+        [TestCase(0, 0)]
+        [TestCase(-100, -50)]
         public void FindMaxDividorTest(int number, int expected)
         {
             //arrange
@@ -73,18 +75,9 @@ namespace Homework3.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(-666)]
-        [TestCase(0)]
-        public void FindMaxDividorNegativeTest(int number)
-        {
-            //arrange
-
-            //act, assert
-            Exception ex = Assert.Throws(typeof(ArgumentException), () => _hw3.FindMaxDividor(number));
-        }
-
         [TestCase(3, 21, 42)]
         [TestCase(21, 3, 42)]
+        [TestCase(14, -21, -21)]
         public void CountSumOfNumbersDivisibleBySevenOnUserRangeTest(int numA, int numB, int expected)
         {
             //arrange
@@ -97,7 +90,6 @@ namespace Homework3.Tests
         }
 
         [TestCase(30, 30)]
-        [TestCase(-49, 0)]
         public void CountSumOfNumbersDivisibleBySevenOnUserRangeNegativeTest(int numA, int numB)
         {
             //arrange
@@ -142,6 +134,7 @@ namespace Homework3.Tests
         [TestCase(20, 100, 20)]
         [TestCase(0, 0, 0)]
         [TestCase(0, 30, 30)]
+        [TestCase(-30, 30, 30)]
         public void FindGreatestCommonDividorTest(int num1, int num2, int expected)
         {
             //arrange
@@ -151,15 +144,6 @@ namespace Homework3.Tests
 
             //assert
             Assert.AreEqual(expected, actual);
-        }
-
-        [TestCase(-4, -20)]
-        public void FindGreatestCommonDividorNegativeTest(int num1, int num2)
-        {
-            //arrange
-
-            //act, assert
-            Exception ex = Assert.Throws(typeof(ArgumentException), () => _hw3.FindGreatestCommonDividor(num1, num2));
         }
 
         [TestCase(81, 4.375)]
@@ -186,6 +170,7 @@ namespace Homework3.Tests
 
         [TestCase(123, 321)]
         [TestCase(333, 333)]
+        [TestCase(5400, 0045)]
         [TestCase(7, 7)]
         public void MirrorFiguresInNumberTest(int num, int expected)
         {
@@ -269,12 +254,29 @@ namespace Homework3.Tests
         [TestCase(123, 345, "ÄÀ")]
         [TestCase(345, 111, "ÍÅÒ")]
         [TestCase(-3666, -345, "ÄÀ")]
+        [TestCase(104, 0, "ÄÀ")]
+        [TestCase(0, 104, "ÄÀ")]
+        [TestCase(0, 0, "ÄÀ")]
         public void CheckNumbersForSameDigitsTest(int numN1, int numN2, string expected)
         {
             //arrange
 
             //act
             string actual = _hw3.CheckNumbersForSameDigits(numN1, numN2);
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(4, 405, "ÄÀ")]
+        [TestCase(0, 104, "ÄÀ")]
+        [TestCase(0, 345, "ÍÅÒ")]
+        public void CheckTest(int check1, int numN2, string expected)
+        {
+            //arrange
+
+            //act
+            string actual = _hw3.Check(numN2, check1);
 
             //assert
             Assert.AreEqual(expected, actual);

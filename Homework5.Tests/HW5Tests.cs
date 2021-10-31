@@ -30,17 +30,17 @@ namespace Homework5.Tests
             Assert.AreEqual(expected, arrayToTest);
         }
 
-        [TestCase(0, "[0,1] : 11. [1,0] : 11. Кол-во элементов массива, которые больше всех своих соседей равно 2")]
-        [TestCase(1, "[1,1] : 53. [2,2] : 87. Кол-во элементов массива, которые больше всех своих соседей равно 2")]
-        [TestCase(2, "Кол-во элементов массива, которые больше всех своих соседей равно 0")]
-        [TestCase(-1, "Кол-во элементов массива, которые больше всех своих соседей равно 0")]
-        public void CountSumOfElementsThatGreaterThanNeighborsTest(int index, string expected)
+        [TestCase(0, 2)]
+        [TestCase(1, 2)]
+        [TestCase(2, 0)]
+        [TestCase(-1, 0)]
+        public void CountSumOfElementsThatGreaterThanNeighborsTest(int index, int expected)
         {
             //arrange
             int[,] arrayToTest = TestData.GetArrayForCountSumOfElementsThatGreaterThanNeighborsTest(index);
 
             //act
-            string actual = _hw5.CountSumOfElementsThatGreaterThanNeighbors(arrayToTest);
+            int actual = _hw5.CountSumOfElementsThatGreaterThanNeighbors(arrayToTest);
 
             //assert
             Assert.AreEqual(expected, actual);

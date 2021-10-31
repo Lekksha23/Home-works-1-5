@@ -99,29 +99,60 @@ namespace Homework3
 
         public string CheckNumbersForSameDigits(int numN1, int numN2)
         {
-            int tmp1;
-            int tmp2;
             int copy = numN2;
+            string res = "";
 
-            while (numN1 != 0)
+            if (numN1 == numN2)
             {
-                tmp1 = numN1;
-                int check1 = numN1 % 10;
-                numN2 = copy;
-
-                while (numN2 != 0)
+                return "ДА";
+            }
+            else if (numN1 == 0)
+            {
+                int check1 = 0;
+                res = Check(numN2, check1);
+            }
+            else if (numN2 == 0)
+            {
+                while (numN1 != 0)
                 {
-                    tmp2 = numN2;
-                    int check2 = numN2 % 10;
+                    int check1 = numN1 % 10;
 
-                    if (check1 == check2)
+                    if (check1 == 0)
                     {
                         return "ДА";
                     }
-                    numN2 /= 10;
+                    numN1 /= 10;
                 }
+            }
+            else
+            {
+                while (numN1 != 0)
+                {
+                    int check1 = numN1 % 10;
+                    numN2 = copy;
+                    res = Check(numN2, check1);
 
-                numN1 /= 10;
+                    if (res == "ДА")
+                    {
+                        return res;
+                    }
+                    numN1 /= 10;
+                }
+            }
+            return res;
+        }
+
+        public string Check(int numN2, int check1)
+        {
+            while (numN2 != 0)
+            {
+                int check2 = numN2 % 10;
+
+                if (check1 == check2)
+                {
+                    return "ДА";
+                }
+                numN2 /= 10;
             }
             return "НЕТ";
         }
@@ -235,10 +266,6 @@ namespace Homework3
 
         public int FindGreatestCommonDividor(int num1, int num2)
         {
-            if (num1 < 0 && num2 < 0)
-            {
-                throw new ArgumentException("Введите положительные числа!");
-            }
             int dividor = 0;
 
             while (num1 != 0 && num2 != 0)
@@ -253,7 +280,7 @@ namespace Homework3
                 }
             }
             dividor = num1 + num2;
-            return dividor;
+            return Math.Abs(dividor);
         }
 
 
@@ -296,10 +323,6 @@ namespace Homework3
             {
                 throw new ArgumentException("Введите разные числа!");
             }
-            else if (numA < 0 || numB < 0)
-            {
-                throw new ArgumentException("Числа должны быть положительными!");
-            }
 
             if (numB > numA)
             {
@@ -321,18 +344,28 @@ namespace Homework3
 
         public int FindMaxDividor(int number)
         {
-            if (number < 0 || number == 0)
-            {
-                throw new ArgumentException("Введите значение больше нуля!");
-            }
             int maxDividor = 0;
 
-            for (int i = number - 1; i > 0; i--)
+            if (number < 0)
             {
-                if (number % i == 0)
+                for (int i = number + 1; i < 0; i++)
                 {
-                    maxDividor = i;
-                    break;
+                    if (number % i == 0)
+                    {
+                        maxDividor = i;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = number - 1; i > 0; i--)
+                {
+                      if (number % i == 0)
+                      {
+                          maxDividor = i;
+                          break;
+                      }
                 }
             }
             return maxDividor;

@@ -67,9 +67,10 @@ namespace Homework5
             int[,] array = FillDoubleArray(n, m);
             PrintDoubleArrayToConsole(array);
             Console.WriteLine();
-            string result = CountSumOfElementsThatGreaterThanNeighbors(array);
+            int counter = CountSumOfElementsThatGreaterThanNeighbors(array);
             Console.WriteLine("Результат пятой задачи: ");
-            Console.WriteLine(result);
+            Console.WriteLine("Кол-во элементов массива, которые больше " +
+                              $"всех своих соседей равно {counter}");
         }
 
         public void SolveTask6()
@@ -115,10 +116,10 @@ namespace Homework5
             }
         }
 
-        public string CountSumOfElementsThatGreaterThanNeighbors(int[,] array)
+        public int CountSumOfElementsThatGreaterThanNeighbors(int[,] array)
         {
             int counter = 0;
-            string str = "";
+            //string str = "";
 
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -130,14 +131,14 @@ namespace Homework5
                         && (j >= array.GetLength(1) - 1 || array[i, j] > array[i, j + 1]))
                     {
                         counter++;
-                        str += $"[{i},{j}] : {array[i, j]}. ";
+                        //str += $"[{i},{j}] : {array[i, j]}. ";
                     }
                 }
             }
-            str += $"Кол-во элементов массива, которые больше " +
-                              $"всех своих соседей равно {counter}";
+            //str += $"Кол-во элементов массива, которые больше " +
+                              //$"всех своих соседей равно {counter}";
             
-            return str;
+            return counter;
         }
 
         public int[] FindIndexOfMaxElementInDoubleArray(int[,] array)
