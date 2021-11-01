@@ -100,59 +100,31 @@ namespace Homework3
         public string CheckNumbersForSameDigits(int numN1, int numN2)
         {
             int copy = numN2;
-            string res = "";
 
-            if (numN1 == numN2)
+            while (Math.Abs(numN1) >= 0)
             {
-                return "ДА";
-            }
-            else if (numN1 == 0)
-            {
-                int check1 = 0;
-                res = Check(numN2, check1);
-            }
-            else if (numN2 == 0)
-            {
-                while (numN1 != 0)
+                int check1 = numN1 % 10;
+                numN2 = copy;
+
+                while (Math.Abs(numN2) >= 0)
                 {
-                    int check1 = numN1 % 10;
+                    int check2 = numN2 % 10;
 
-                    if (check1 == 0)
+                    if (check1 == check2)
                     {
                         return "ДА";
                     }
-                    numN1 /= 10;
-                }
-            }
-            else
-            {
-                while (numN1 != 0)
-                {
-                    int check1 = numN1 % 10;
-                    numN2 = copy;
-                    res = Check(numN2, check1);
 
-                    if (res == "ДА")
-                    {
-                        return res;
-                    }
-                    numN1 /= 10;
+                    numN2 /= 10;
+                    
+                    if (numN2 == 0)
+                        break;
                 }
-            }
-            return res;
-        }
+        
+                numN1 /= 10;
 
-        public string Check(int numN2, int check1)
-        {
-            while (numN2 != 0)
-            {
-                int check2 = numN2 % 10;
-
-                if (check1 == check2)
-                {
-                    return "ДА";
-                }
-                numN2 /= 10;
+                if (numN1 == 0)
+                    break;
             }
             return "НЕТ";
         }
@@ -346,20 +318,7 @@ namespace Homework3
         {
             int maxDividor = 0;
 
-            if (number < 0)
-            {
-                for (int i = number + 1; i < 0; i++)
-                {
-                    if (number % i == 0)
-                    {
-                        maxDividor = i;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = number - 1; i > 0; i--)
+                for (int i = Math.Abs(number) - 1; i > 0; i--)
                 {
                       if (number % i == 0)
                       {
@@ -367,7 +326,7 @@ namespace Homework3
                           break;
                       }
                 }
-            }
+            
             return maxDividor;
         }
 

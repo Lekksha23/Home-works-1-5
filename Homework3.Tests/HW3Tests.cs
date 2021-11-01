@@ -63,7 +63,7 @@ namespace Homework3.Tests
         [TestCase(70, 35)]
         [TestCase(2, 1)]
         [TestCase(0, 0)]
-        [TestCase(-100, -50)]
+        [TestCase(-100, 50)]
         public void FindMaxDividorTest(int number, int expected)
         {
             //arrange
@@ -254,6 +254,7 @@ namespace Homework3.Tests
         [TestCase(123, 345, "ÄÀ")]
         [TestCase(345, 111, "ÍÅÒ")]
         [TestCase(-3666, -345, "ÄÀ")]
+        [TestCase(1324, 100, "ÄÀ")]
         [TestCase(104, 0, "ÄÀ")]
         [TestCase(0, 104, "ÄÀ")]
         [TestCase(0, 0, "ÄÀ")]
@@ -267,20 +268,5 @@ namespace Homework3.Tests
             //assert
             Assert.AreEqual(expected, actual);
         }
-
-        [TestCase(4, 405, "ÄÀ")]
-        [TestCase(0, 104, "ÄÀ")]
-        [TestCase(0, 345, "ÍÅÒ")]
-        public void CheckTest(int check1, int numN2, string expected)
-        {
-            //arrange
-
-            //act
-            string actual = _hw3.Check(numN2, check1);
-
-            //assert
-            Assert.AreEqual(expected, actual);
-        }
-
     }
 }
