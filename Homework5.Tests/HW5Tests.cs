@@ -16,6 +16,7 @@ namespace Homework5.Tests
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
+        [TestCase(3)]
         [TestCase(-1)]
         public void TransposeTheMatrixTest(int index)
         {
@@ -33,22 +34,24 @@ namespace Homework5.Tests
         [TestCase(0, 2)]
         [TestCase(1, 2)]
         [TestCase(2, 0)]
+        [TestCase(3, 1)]
         [TestCase(-1, 0)]
-        public void CountSumOfElementsThatGreaterThanNeighborsTest(int index, int expected)
+        public void CountElementsThatGreaterThanNeighborsTest(int index, int expected)
         {
             //arrange
-            int[,] arrayToTest = TestData.GetArrayForCountSumOfElementsThatGreaterThanNeighborsTest(index);
+            int[,] arrayToTest = TestData.GetArrayForCountElementsThatGreaterThanNeighborsTest(index);
 
             //act
-            int actual = _hw5.CountSumOfElementsThatGreaterThanNeighbors(arrayToTest);
+            int actual = _hw5.CountElementsThatGreaterThanNeighbors(arrayToTest);
 
             //assert
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(0, new int[] { 0, 1})]
-        [TestCase(1, new int[] { 1, 1})]
-        [TestCase(2, new int[] { 0, 0})]
+        [TestCase(0, new int[] { 0, 1 })]
+        [TestCase(1, new int[] { 1, 1 })]
+        [TestCase(2, new int[] { 0, 0 })]
+        [TestCase(3, new int[] { 0, 0 })]
         public void FindIndexOfMaxElementInDoubleArrayTest(int index, int[] expected)
         {
             //arrange
@@ -75,6 +78,7 @@ namespace Homework5.Tests
         [TestCase(0, new int[] { 0, 0 })]
         [TestCase(1, new int[] { 0, 2 })]
         [TestCase(2, new int[] { 0, 0 })]
+        [TestCase(3, new int[] { 0, 0 })]
         public void FindIndexOfMinElementInDoubleArrayTest(int index, int[] expected)
         {
             //arrange
@@ -114,6 +118,17 @@ namespace Homework5.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(-1, "Массив пустой")]
+        public void FindMaxElementInDoubleArrayNegativeTest(int index, string expectedMessage)
+        {
+            //arrange
+            int[,] arrayToTest = TestData.GetArrayForFindIndexOfMinElementInDoubleArrayTest(index);
+
+            //act, assert
+            Exception ex = Assert.Throws(typeof(Exception), () => _hw5.FindMaxElementInDoubleArray(arrayToTest));
+            Assert.AreEqual(expectedMessage, ex.Message);
+        }
+
         [TestCase(0, 10)]
         [TestCase(1, 12)]
         [TestCase(2, 12)]
@@ -128,6 +143,17 @@ namespace Homework5.Tests
 
             //assert
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-1, "Массив пустой")]
+        public void FindMinElementInDoubleArrayNegativeTest(int index, string expectedMessage)
+        {
+            //arrange
+            int[,] arrayToTest = TestData.GetArrayForFindIndexOfMinElementInDoubleArrayTest(index);
+
+            //act, assert
+            Exception ex = Assert.Throws(typeof(Exception), () => _hw5.FindMinElementInDoubleArray(arrayToTest));
+            Assert.AreEqual(expectedMessage, ex.Message);
         }
     }
 }

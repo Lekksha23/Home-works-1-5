@@ -224,6 +224,9 @@ namespace Homework4
         {
             int indexOfMax = 0;
 
+            if (array.Length == 0)
+                indexOfMax = -1;
+
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[indexOfMax] < array[i])
@@ -238,6 +241,9 @@ namespace Homework4
         {
             int indexOfMin = 0;
 
+            if (array.Length == 0)
+                indexOfMin = -1;
+
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[indexOfMin] > array[i])
@@ -250,6 +256,10 @@ namespace Homework4
 
         public int FindMaxElementInArray(int[] array)
         {
+            if (array.Length == 0)
+            {
+                throw new Exception("Массив пустой");
+            }
             int max = array[0];
 
             for (int i = 1; i < array.Length; i++)
@@ -284,6 +294,10 @@ namespace Homework4
 
         public int FindMinElementInArray(int[] array)
         {
+            if (array.Length == 0)
+            {
+                throw new Exception("Массив пустой");
+            }
             int min = array[0];
 
             for (int i = 1; i < array.Length; i++)

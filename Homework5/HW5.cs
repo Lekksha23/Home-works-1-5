@@ -67,7 +67,7 @@ namespace Homework5
             int[,] array = FillDoubleArray(n, m);
             PrintDoubleArrayToConsole(array);
             Console.WriteLine();
-            int counter = CountSumOfElementsThatGreaterThanNeighbors(array);
+            int counter = CountElementsThatGreaterThanNeighbors(array);
             Console.WriteLine("Результат пятой задачи: ");
             Console.WriteLine("Кол-во элементов массива, которые больше " +
                               $"всех своих соседей равно {counter}");
@@ -116,10 +116,9 @@ namespace Homework5
             }
         }
 
-        public int CountSumOfElementsThatGreaterThanNeighbors(int[,] array)
+        public int CountElementsThatGreaterThanNeighbors(int[,] array)
         {
             int counter = 0;
-            //string str = "";
 
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -131,13 +130,9 @@ namespace Homework5
                         && (j >= array.GetLength(1) - 1 || array[i, j] > array[i, j + 1]))
                     {
                         counter++;
-                        //str += $"[{i},{j}] : {array[i, j]}. ";
                     }
                 }
             }
-            //str += $"Кол-во элементов массива, которые больше " +
-                              //$"всех своих соседей равно {counter}";
-            
             return counter;
         }
 
@@ -197,6 +192,9 @@ namespace Homework5
 
         public int FindMaxElementInDoubleArray(int[,] array)
         {
+            if (array.Length == 0)
+                throw new Exception("Массив пустой");
+
             int maxElement = array[0, 0];
 
             for (int i = 0; i < array.GetLength(0); i++)
@@ -240,6 +238,9 @@ namespace Homework5
 
         public int FindMinElementInDoubleArray(int[,] array)
         {
+            if (array.Length == 0)
+                throw new Exception("Массив пустой");
+
             int minElement = array[0, 0];
 
             for (int i = 0; i < array.GetLength(0); i++)
